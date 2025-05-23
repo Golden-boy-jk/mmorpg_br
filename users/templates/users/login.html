@@ -1,0 +1,147 @@
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<div class="login-container">
+  <h1>Вход на портал</h1>
+
+  <form method="post" class="login-form">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <div class="error-block">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <div class="form-group">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+
+    <div class="form-group">
+      {{ form.password.label_tag }}
+      {{ form.password }}
+      {{ form.password.errors }}
+    </div>
+
+    <button type="submit" class="login-btn">Войти</button>
+  </form>
+
+  <p class="or-text">или</p>
+
+  <a href="{% provider_login_url 'yandex' %}" class="yandex-btn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Yandex_icon.svg" alt="Yandex icon" class="yandex-icon">
+    Войти через Яндекс
+  </a>
+
+  <p>Нет аккаунта? <a href="{% url 'users:register' %}" class="register-link">Зарегистрируйся</a></p>
+</div>
+
+<style>
+  body {
+    background: url('https://wallpapers.com/images/hd/rpg-games-3840-x-2160-wallpaper-2uonmafqwwbhrqf4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+  }
+
+  .login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .login-btn:hover {
+    background-color: #45a049;
+  }
+
+  .or-text {
+    margin: 20px 0;
+    font-size: 18px;
+  }
+
+  .yandex-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #000;
+    background-color: #f0f0f0;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  .yandex-btn:hover {
+    background-color: #e0e0e0;
+  }
+
+  .yandex-icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .register-link {
+    color: #4caf50;
+    text-decoration: none;
+  }
+
+  .register-link:hover {
+    text-decoration: underline;
+  }
+
+  .error-block {
+    margin-bottom: 20px;
+    color: #ffaaaa;
+    background-color: #440000;
+    padding: 10px;
+    border-radius: 8px;
+  }
+</style>
+{% endblock %}

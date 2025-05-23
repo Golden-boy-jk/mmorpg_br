@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+
+  {% if form.errors %}
+    <div style="color: red; margin-bottom: 10px;">
+      Пожалуйста, исправьте ошибки в форме.
+    </div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}  {# Это подключает JS и CSS CKEditor 5! #}
+    {{ form.as_p }}
+
+    <button type="submit" style="
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    ">💾 Сохранить</button>
+  </form>
+
+  <br>
+  <a href="{% url 'ads:list' %}">← Назад</a>
+{% endblock %}

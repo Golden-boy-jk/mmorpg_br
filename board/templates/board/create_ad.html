@@ -1,0 +1,16 @@
+<h2>Создать объявление</h2>
+
+{% if form.non_field_errors %}
+    <div style="color: red;">
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" style="...">✅ Создать</button>
+</form>
+
+<a href="{% url 'ads:list' %}" style="margin-top: 15px; display: inline-block;">← Назад</a>

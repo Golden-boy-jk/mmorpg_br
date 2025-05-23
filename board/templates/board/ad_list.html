@@ -1,0 +1,49 @@
+<h2>Объявления</h2>
+
+<form method="get" style="margin-bottom: 20px;">
+  <label for="category">Фильтр по категории:</label>
+  <select name="category" id="category">
+    <option value="">Все</option>
+    {% for value, name in categories %}
+      <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" style="margin-left: 10px;">Применить</button>
+</form>
+
+<a href="{% url 'ads:create_ad' %}"
+   style="display: inline-block; padding: 8px 16px; margin-bottom: 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+  ➕ Добавить объявление
+</a>
+
+{% for ad in ads %}
+  <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+    <h3>{{ ad.title }}</h3>
+    <p><strong>Категория:</strong> {{ ad.get_category_display }}</p>
+    <p>{{ ad.content|truncatechars:100 }}</p>
+    <p><em>Автор:</em> {{ ad.author.email }}</p>
+    <a href="{% url 'ads:ad_detail' ad.pk %}">📖 Читать далее</a>
+  </div>
+{% empty %}
+  <p>Пока что нет объявлений.</p>
+{% endfor %}
+
+{% if is_paginated %}
+  <div class="pagination" style="margin-top: 20px;">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">← Назад</a>
+    {% endif %}
+
+    <span style="margin: 0 10px;">
+      Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">Вперёд →</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+<div style="margin-top: 30px;">
+  <a href="{% url 'users:home' %}">⬅ Вернуться на главную</a>
+</div>

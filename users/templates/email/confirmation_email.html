@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Письмо от Гильдии</title>
+</head>
+<body style="margin:0; padding:0; background: url('https://wallpapers.com/images/hd/fantasy-scroll-ancient-parchment-background-3xun1zztv6pspw0w.jpg') no-repeat center center; background-size: cover; font-family: 'Georgia', serif;">
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td align="center" style="padding: 60px 20px;">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 650px; background-color: rgba(255, 255, 255, 0.92); border-radius: 16px; padding: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+          <tr>
+            <td style="color: #3e2c00; text-align: center;">
+              <h1 style="font-size: 28px; margin-bottom: 10px;">📜 Призыв от Гильдии MMORPG</h1>
+              <p style="font-size: 16px; margin-bottom: 30px;">
+                Приветствую, <strong>{{ user.first_name|default:user.email }}</strong>!
+              </p>
+
+              <p style="font-size: 16px; line-height: 1.6;">
+                Ты был избран судьбой и зарегистрировался на нашем великом портале для героев. Однако, путь твой не завершён. Остался последний шаг...
+              </p>
+
+              <p style="font-size: 16px; margin: 30px 0;">
+                🔐 Чтобы пробудить силу аккаунта, активируй его, нажав на магическую печать ниже:
+              </p>
+
+              <div style="margin: 30px 0;">
+                <a href="{{ confirmation_link }}" style="
+                  background: linear-gradient(135deg, #8b4513, #d2b48c);
+                  color: #fff;
+                  padding: 14px 28px;
+                  text-decoration: none;
+                  font-weight: bold;
+                  font-size: 16px;
+                  border-radius: 30px;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                  display: inline-block;
+                ">⚔️ Активировать аккаунт</a>
+              </div>
+
+              <p style="font-size: 14px; color: #6b4f28;">
+                Или скопируй этот магический путь вручную и вставь в волшебное окно браузера:
+              </p>
+              <p style="word-break: break-all; font-size: 14px; color: #7a5a33;">{{ confirmation_link }}</p>
+
+              <hr style="margin: 40px 0; border: none; border-top: 1px solid #d6b98c;">
+
+              <p style="font-size: 13px; color: #9c7d51;">
+                Если это письмо пришло к тебе по ошибке — возможно, это проделки тёмного мага. Просто удали его и забудь всё как страшный сон.
+              </p>
+
+              <p style="font-size: 12px; color: #bfa77d; margin-top: 30px;">С благословением света,<br>Хранители Портала MMORPG Board</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

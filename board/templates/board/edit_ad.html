@@ -1,0 +1,25 @@
+<h2>Редактировать объявление</h2>
+
+{% if form.non_field_errors %}
+    <div style="color: red; margin-bottom: 10px;">
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" style="
+        padding: 10px 20px;
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    ">
+        💾 Сохранить
+    </button>
+</form>
+
+<a href="{% url 'ads:list' %}" style="margin-top: 15px; display: inline-block;">← Назад</a>

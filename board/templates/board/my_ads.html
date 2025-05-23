@@ -1,0 +1,59 @@
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Мои объявления</h2>
+
+    <form method="get" class="form-inline mb-3">
+      <label for="category" class="mr-2">Фильтр по категории:</label>
+      <select name="category" id="category" class="form-control mr-2">
+        <option value="">Все категории</option>
+        {% for code, name in categories %}
+          <option value="{{ code }}" {% if selected_category == code %}selected{% endif %}>
+            {{ name }}
+          </option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-primary">Фильтровать</button>
+    </form>
+
+    {% if ads %}
+      {% for ad in ads %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4><a href="{% url 'ads:ad_detail' ad.pk %}">{{ ad.title }}</a></h4>
+            <p>{{ ad.text|truncatechars:100 }}</p>
+            <p><strong>Категория:</strong> {{ ad.get_category_display }}</p>
+            <div>
+              <a href="{% url 'ads:edit_ad' ad.pk %}" class="btn btn-sm btn-outline-secondary">✏️ Редактировать</a>
+              <a href="{% url 'ads:delete_ad' ad.pk %}" class="btn btn-sm btn-outline-danger">🗑️ Удалить</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      <nav class="pagination">
+        <ul class="pagination">
+          {% if ads.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ ads.previous_page_number }}">« Назад</a>
+            </li>
+          {% endif %}
+
+          <li class="page-item disabled">
+            <span class="page-link">Страница {{ ads.number }} из {{ ads.paginator.num_pages }}</span>
+          </li>
+
+          {% if ads.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ ads.next_page_number }}">Вперёд »</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% else %}
+      <p>Вы ещё не создавали объявлений.</p>
+    {% endif %}
+
+    <hr>
+    <a href="{% url 'ads:list' %}" class="btn btn-outline-primary">🏠 Вернуться на главную</a>
+  </div>
+{% endblock %}

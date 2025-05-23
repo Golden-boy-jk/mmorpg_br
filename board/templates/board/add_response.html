@@ -1,0 +1,29 @@
+{% block content %}
+  <h2>Оставить отклик на объявление "{{ ad.title }}"</h2>
+
+  {% if form.errors %}
+    <div style="color: red; margin-bottom: 10px;">
+      Пожалуйста, исправьте ошибки в форме.
+    </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    ">
+      ✅ Отправить
+    </button>
+  </form>
+
+  <br>
+  <a href="{% url 'ads:ad_detail' ad.pk %}" style="display: inline-block; margin-top: 10px;">
+    ← Назад к объявлению
+  </a>
+{% endblock %}

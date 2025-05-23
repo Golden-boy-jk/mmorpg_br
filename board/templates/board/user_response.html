@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Ваши отклики{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Ваши отклики</h2>
+
+    <form method="get" class="form-inline mb-4">
+      <label for="ad" class="mr-2">Фильтр по объявлению:</label>
+      <select name="ad" id="ad" class="form-control mr-2">
+        <option value="">Все</option>
+        {% for ad in ads %}
+          <option value="{{ ad.id }}" {% if request.GET.ad == ad.id|stringformat:"s" %}selected{% endif %}>
+            {{ ad.title }}
+          </option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-primary">Фильтровать</button>
+    </form>
+
+    {% if responses %}
+      {% for response in responses %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Отклик на
+              <a href="{% url 'ads:ad_detail' response.ad.pk %}">{{ response.ad.title }}</a>
+            </h5>
+            <p class="card-text">{{ response.content }}</p>
+            <p class="card-text">
+              <small class="text-muted">Дата: {{ response.created_at }}</small>
+            </p>
+
+            <div class="d-flex gap-2 mt-2">
+              {% if response.status == "pending" %}
+                <span class="badge badge-warning">Ожидает</span>
+              {% elif response.status == "accepted" %}
+                <span class="badge badge-success">Принят</span>
+              {% else %}
+                <span class="badge badge-secondary">Отклонён</span>
+              {% endif %}
+            </div>
+
+            <form method="post" action="{% url 'ads:delete_response' response.pk %}" class="mt-3">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger">🗑️ Удалить отклик</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-muted">Вы пока не оставляли откликов.</p>
+    {% endif %}
+
+    <a href="{% url 'ads:list' %}" class="btn btn-outline-primary mt-4">← Назад к объявлениям</a>
+  </div>
+{% endblock %}

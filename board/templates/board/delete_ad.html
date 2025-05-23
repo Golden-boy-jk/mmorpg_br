@@ -1,0 +1,27 @@
+<h2>Удаление объявления</h2>
+
+<p>Ты точно хочешь удалить объявление <strong>"{{ object.title }}"</strong>?</p>
+
+<form method="post" style="margin-top: 20px;">
+    {% csrf_token %}
+    <button type="submit" style="
+        padding: 10px 20px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    ">
+        🗑️ Да, удалить
+    </button>
+    <a href="{{ object.get_absolute_url }}" style="
+        margin-left: 10px;
+        padding: 10px 20px;
+        background-color: #ccc;
+        color: black;
+        text-decoration: none;
+        border-radius: 5px;
+    ">
+        ❌ Отмена
+    </a>
+</form>
